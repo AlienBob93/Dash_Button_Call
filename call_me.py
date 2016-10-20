@@ -5,14 +5,14 @@ import time
 import json
 import urllib2
 
-IF_Key = 'cbmNX3rcy9SxCN-EcI88rB'
-IF_trigger = 'https://maker.ifttt.com/trigger/dash_button_pressed/with/key/' + IF_Key
+IF_Key = 'abcdefghrcy9SxCN-EcI88rB' # add your key from the IFTTT maker channel
+IF_trigger = 'https://maker.ifttt.com/trigger/dash_button_pressed/with/key/' + IF_Key	# trigger event url
 
-button_macs= {'747548bbc7e5' : 'AlienBob'}
+button_macs= {'74754a563773' : 'AlienBob'}
 
 rawSocket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(0x0003))
 
-def trigger_url(url):
+def trigger_url(url):	# function to send the trigger url
 	data = '{ "value1" : "' + time.strftime("%Y-%m-%d") + '", "value2" : "' + time.strftime("%H:%M") + '" }'
 	req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
     	f = urllib2.urlopen(req)
@@ -37,6 +37,6 @@ while True:
 	dest_ip = socket.inet_ntoa(arp_detailed[8])
 	
 	if source_mac in button_macs:
-		print "calling trigger " + trigger_url(IF_trigger)	
-	#else:
-		#print "Unknown MAC " + source_mac + " from IP " + source_ip
+		print "calling trigger " + trigger_url(IF_trigger)	# multiple client buttons can be added
+	else:
+		print "Unknown MAC " + source_mac + " from IP " + source_ip
